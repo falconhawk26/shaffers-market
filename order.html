@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
 <header>
   <div class="header-inner">
     <div class="logo-text">Shaffer's Market</div>
@@ -20,7 +21,7 @@
 </header>
 
 <div class="hero">
-  <img src="storefront.jpg" alt="Shaffer's Market storefront">
+  <img src="storefront.jpeg" alt="Storefront">
 </div>
 
 <div class="container">
@@ -33,99 +34,81 @@
   <form action="" method="POST" onsubmit="return false;">
     <div class="card">
       <h3>Customer Information</h3>
-      <label>Full Name</label>
-      <input type="text" name="name" required>
-      <label>Phone Number</label>
-      <input type="text" name="phone" required>
-      <label>Email Address (optional)</label>
-      <input type="email" name="email">
+      <label>Name</label>
+      <input type="text">
+      <label>Phone</label>
+      <input type="text">
+      <label>Email</label>
+      <input type="email">
     </div>
 
     <div class="card">
-      <h3>Pickup Details</h3>
-      <label>Pickup Time</label>
-      <select name="pickup_time" required>
+      <h3>Pickup Time</h3>
+      <select>
         <option>As soon as ready</option>
-        <option>10:00 AM – 12:00 PM</option>
-        <option>12:00 PM – 2:00 PM</option>
-        <option>2:00 PM – 4:00 PM</option>
-        <option>4:00 PM – 6:00 PM</option>
+        <option>10 AM – 12 PM</option>
+        <option>12 PM – 2 PM</option>
+        <option>2 PM – 4 PM</option>
+        <option>4 PM – 6 PM</option>
       </select>
     </div>
 
     <h2>Your Items</h2>
     <div id="items-container"></div>
-    <button type="button" onclick="addItemRow()">Add Another Item</button>
+    <button type="button" onclick="addItemRow()">Add Item</button>
 
     <div class="card">
       <h3>Special Instructions</h3>
-      <textarea name="instructions" rows="5" placeholder="Cut thick, substitute if out, etc."></textarea>
+      <textarea rows="5"></textarea>
     </div>
 
     <button type="submit">Submit Order</button>
   </form>
 </div>
 
-<footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>Shaffer's Market</h4>
-      <p>8 W Turkeyfoot Lake Rd<br>Akron, OH 44319</p>
-    </div>
-    <div class="footer-section">
-      <h4>Hours</h4>
-      <p>Mon–Sun: 9:00 AM – 6:00 PM</p>
-    </div>
-    <div class="footer-section">
-      <h4>Contact</h4>
-      <p>(330) 208-0455</p>
-    </div>
-  </div>
-</footer>
-
 <script>
   const menu = {
     "Produce": ["Apples", "Bananas", "Lettuce"],
-    "Meat & Poultry": ["Ground Beef", "Steaks"],
-    "Deli": ["Sliced Ham", "Swiss Cheese"]
+    "Meat": ["Ground Beef", "Steaks"],
+    "Deli": ["Ham", "Swiss Cheese"]
   };
 
-  function updateItems(selectElement) {
-    const category = selectElement.value;
-    const itemSelect = selectElement.parentElement.querySelector(".item-select");
-    itemSelect.innerHTML = "";
-    if (!menu[category]) return;
-    menu[category].forEach(item => {
-      const option = document.createElement("option");
-      option.value = item;
-      option.textContent = item;
-      itemSelect.appendChild(option);
+  function updateItems(sel) {
+    const cat = sel.value;
+    const itemSel = sel.parentElement.querySelector(".item-select");
+    itemSel.innerHTML = "";
+    if (!menu[cat]) return;
+    menu[cat].forEach(i => {
+      const o = document.createElement("option");
+      o.textContent = i;
+      itemSel.appendChild(o);
     });
   }
 
   function addItemRow() {
-    const container = document.getElementById("items-container");
-    const row = document.createElement("div");
-    row.className = "card";
-    row.innerHTML = `
+    const c = document.getElementById("items-container");
+    const r = document.createElement("div");
+    r.className = "card";
+    r.innerHTML = `
       <label>Category</label>
-      <select class="category-select" onchange="updateItems(this)" required>
-        <option value="">Select Category</option>
+      <select class="category-select" onchange="updateItems(this)">
+        <option value="">Select</option>
         <option>Produce</option>
-        <option>Meat & Poultry</option>
+        <option>Meat</option>
         <option>Deli</option>
       </select>
 
       <label>Item</label>
-      <select class="item-select" required></select>
+      <select class="item-select"></select>
 
       <label>Quantity</label>
-      <input type="number" min="1" placeholder="1, 2, 3..." required>
+      <input type="number" min="1">
     `;
-    container.appendChild(row);
+    c.appendChild(r);
   }
 
   window.onload = addItemRow;
 </script>
+
 </body>
 </html>
