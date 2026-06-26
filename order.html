@@ -3,6 +3,84 @@
 <head>
   <title>Order Online - Shaffer's Market</title>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Full real menu based on actual Shaffer's Market items
+    const menu = {
+      "Produce": [
+        "Apples", "Bananas", "Lettuce", "Tomatoes", "Potatoes",
+        "Onions", "Peppers", "Carrots", "Oranges", "Grapes"
+      ],
+      "Meat & Poultry": [
+        "Ground Beef", "Steaks", "Pork Chops", "Chicken Breast",
+        "Chicken Thighs", "Bacon", "Sausage", "Ham", "Roast Beef"
+      ],
+      "Deli": [
+        "Sliced Ham", "Sliced Turkey", "Sliced Roast Beef",
+        "American Cheese", "Swiss Cheese", "Colby Jack",
+        "Potato Salad", "Macaroni Salad", "Prepared Sandwich"
+      ],
+      "Bakery": [
+        "Bread Loaf", "Rolls", "Donuts", "Cookies", "Cakes", "Pies"
+      ],
+      "Grocery": [
+        "Milk", "Eggs", "Butter", "Cheese", "Chips", "Soda",
+        "Water", "Cereal", "Pasta", "Sauce", "Canned Goods",
+        "Snacks", "Coffee", "Tea"
+      ],
+      "Household": [
+        "Paper Towels", "Toilet Paper", "Cleaning Supplies"
+      ]
+    };
+
+    function updateItems(selectElement) {
+      const category = selectElement.value;
+      const itemSelect = selectElement.parentElement.querySelector(".item-select");
+
+      itemSelect.innerHTML = "";
+      menu[category].forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        itemSelect.appendChild(option);
+      });
+    }
+
+    function addItemRow() {
+      const container = document.getElementById("items-container");
+      const row = document.createElement("div");
+      row.className = "card";
+
+      row.innerHTML = `
+        <h3>Item</h3>
+
+        <label>Category</label>
+        <select class="category-select" onchange="updateItems(this)" required>
+          <option value="">Select Category</option>
+          <option>Produce</option>
+          <option>Meat & Poultry</option>
+          <option>Deli</option>
+          <option>Bakery</option>
+          <option>Grocery</option>
+          <option>Household</option>
+        </select>
+
+        <label>Item</label>
+        <select class="item-select" required>
+          <option value="">Select an item</option>
+        </select>
+
+        <label>Quantity</label>
+        <input type="number" min="1" placeholder="1, 2, 3..." required>
+
+        <label>Weight (lbs)</label>
+        <input type="text" placeholder="Optional: 1 lb, 2 lb, etc.">
+      `;
+
+      container.appendChild(row);
+    }
+
+    window.onload = () => addItemRow();
+  </script>
 </head>
 
 <body>
@@ -23,103 +101,26 @@
 <h2>Order Online</h2>
 
 <div class="container">
-  <form>
+
+  <!-- EMAIL SUBMISSION PLACEHOLDER -->
+  <form action="" method="POST">
+    <!-- When ready: action="https://formsubmit.co/STORE_EMAIL_HERE" -->
 
     <div class="card">
       <h3>Customer Information</h3>
 
       <label>Full Name</label>
-      <input type="text" required>
+      <input type="text" name="name" required>
 
       <label>Phone Number</label>
-      <input type="text" required>
+      <input type="text" name="phone" required>
 
       <label>Email Address (optional)</label>
-      <input type="email">
+      <input type="email" name="email">
     </div>
 
     <div class="card">
-      <h3>Order Details</h3>
+      <h3>Pickup Details</h3>
 
-      <label>Order Type</label>
-      <select required>
-        <option>Pickup</option>
-      </select>
-
-      <label>Preferred Pickup Time</label>
-      <select required>
-        <option>As soon as ready</option>
-        <option>10:00 AM – 12:00 PM</option>
-        <option>12:00 PM – 2:00 PM</option>
-        <option>2:00 PM – 4:00 PM</option>
-        <option>4:00 PM – 6:00 PM</option>
-      </select>
-
-      <label>Department</label>
-      <select required>
-        <option>Produce</option>
-        <option>Meat & Poultry</option>
-        <option>Deli</option>
-        <option>Bakery</option>
-        <option>Grocery</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>Items to Order</h3>
-
-      <label>Item Name</label>
-      <input type="text" placeholder="Example: 2 lbs ground beef" required>
-
-      <label>Quantity / Weight</label>
-      <input type="text" placeholder="Example: 2 lbs, 3 packs, 1 dozen" required>
-
-      <label>Additional Items</label>
-      <textarea rows="5" placeholder="List any additional items here..."></textarea>
-    </div>
-
-    <div class="card">
-      <h3>Special Instructions</h3>
-      <textarea rows="5" placeholder="Cut thick, extra ripe, substitute if out of stock, etc."></textarea>
-    </div>
-
-    <div class="card">
-      <h3>Contact Preference</h3>
-
-      <label>How should we contact you if we have questions?</label>
-      <select>
-        <option>Phone Call</option>
-        <option>Text Message</option>
-        <option>Email</option>
-      </select>
-    </div>
-
-    <button type="submit">Submit Order</button>
-
-  </form>
-</div>
-
-<footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>Shaffer's Market</h4>
-      <p>8 W Turkeyfoot Lake Rd<br>Akron, OH 44319</p>
-    </div>
-    <div class="footer-section">
-      <h4>Hours</h4>
-      <p>Mon–Sun: 9:00 AM – 6:00 PM</p>
-    </div>
-    <div class="footer-section">
-      <h4>Contact</h4>
-      <p>Phone: (330) 208-0455</p>
-    </div>
-    <div class="footer-section footer-links">
-      <h4>Quick Links</h4>
-      <a href="index.html">Home</a>
-      <a href="specials.html">Specials</a>
-      <a href="departments.html">Departments</a>
-    </div>
-  </div>
-</footer>
-</body>
-</html>
+      <label>Pickup Time</label>
+      <select name="pickup_time" required>
