@@ -1,60 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Contact | Shaffer's Market</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Contact - Shaffer’s Market</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 <header>
-  <div class="nav">
-    <div class="logo">SHAFFER'S MARKET · AKRON, OH</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="specials.html">Weekly Specials</a>
-      <a href="order.html">Order Online</a>
-      <a href="visit.html">Visit & Hours</a>
-      <a href="contact.html"><strong>Contact</strong></a>
-    </nav>
-  </div>
+  <h1>Shaffer’s Market</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="departments.html">Departments</a>
+    <a href="specials.html">Weekly Specials</a>
+    <a href="order.html">Order Online</a>
+    <a href="visit.html">Visit Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 </header>
 
-<main class="page">
-  <h1>Contact Shaffer's Market</h1>
-  <p>Have a question about an order, a special cut, or availability? Reach out.</p>
+<h2>Contact Us</h2>
 
-  <h2>Phone</h2>
-  <p>(330) 555‑1234</p>
+<div class="container">
+  <form>
+    <div class="card">
+      <h3>Send Us a Message</h3>
 
-  <h2>Email</h2>
-  <p>info@shaffersmarket.com (example—replace with real email)</p>
+      <label>Your Name</label>
+      <input type="text" required>
 
-  <h2>Contact form</h2>
-  <form class="contact-form">
-    <div class="field">
-      <label for="name">Name</label>
-      <input id="name" name="name" required />
+      <label>Your Email</label>
+      <input type="email" required>
+
+      <label>Your Message</label>
+      <textarea rows="6" required></textarea>
+
+      <button type="submit">Send Message</button>
     </div>
-    <div class="field">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required />
-    </div>
-    <div class="field">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
-    </div>
-    <button class="btn btn-primary" type="submit">Send message</button>
   </form>
-</main>
+</div>
 
 <footer>
-  <div class="footer-inner">
-    <div>Shaffer's Market · Akron, OH</div>
-    <div>Mon–Sat: 9am–7pm · Sun: Closed</div>
-    <div>Phone: (330) 555‑1234</div>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Shaffer’s Market</h4>
+      <p>14944 North Cheshire St<br>Burton, OH 44021</p>
+    </div>
+    <div class="footer-section">
+      <h4>Hours</h4>
+      <p>Mon–Sat: 8:00 AM – 7:00 PM<br>Sunday: Closed</p>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Phone: (555) 555‑5555</p>
+    </div>
+    <div class="footer-section footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="departments.html">Departments</a>
+      <a href="order.html">Order Online</a>
+    </div>
   </div>
 </footer>
 </body>
