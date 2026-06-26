@@ -3,52 +3,57 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ===== COLORS ===== */
+/* ===== COLORS (Classic Small-Town Market) ===== */
 :root {
-  --green: #2e7d32;
-  --dark-green: #1b5e20;
-  --light-green: #a5d6a7;
-  --cream: #f7f5e6;
-  --gray: #444;
+  --green: #215732;       /* forest green */
+  --dark-green: #163b22;
+  --cream: #f5f0e6;       /* warm cream */
+  --brown: #5a4632;       /* soft brown */
+  --text: #333333;
 }
 
 /* ===== BODY ===== */
 body {
   background-color: var(--cream);
-  color: var(--gray);
+  color: var(--text);
+  font-family: "Georgia", "Times New Roman", serif;
   line-height: 1.6;
-  padding-bottom: 80px;
+  padding-bottom: 90px;
 }
 
-/* ===== HEADER / NAV ===== */
+/* ===== HEADER / LOGO ===== */
 header {
   background-color: var(--green);
+  color: #ffffff;
   padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
-header h1 {
-  color: white;
-  font-size: 32px;
-  margin-bottom: 10px;
+.header-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-nav {
-  margin-top: 10px;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-size: 16px;
+.logo-text {
+  font-size: 30px;
+  letter-spacing: 1px;
   font-weight: bold;
+}
+
+/* ===== NAV ===== */
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 12px;
+  font-size: 15px;
   padding: 6px 10px;
   border-radius: 4px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 nav a:hover {
@@ -59,7 +64,7 @@ nav a:hover {
 h2 {
   text-align: center;
   margin: 30px 0 10px;
-  color: var(--dark-green);
+  color: var(--brown);
   font-size: 26px;
 }
 
@@ -79,35 +84,50 @@ h2 {
 .hero img {
   max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* ===== IMAGE ROWS ===== */
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.image-row img {
+  flex: 1 1 45%;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* ===== CARDS ===== */
 .card {
-  background: white;
+  background: #ffffff;
   padding: 20px;
   margin: 15px 0;
   border-left: 6px solid var(--green);
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 .card h3 {
   color: var(--green);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 /* ===== BUTTONS ===== */
 button, .btn {
   background-color: var(--green);
-  color: white;
-  padding: 12px 18px;
+  color: #ffffff;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  display: inline-block;
   margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button:hover, .btn:hover {
@@ -116,35 +136,37 @@ button:hover, .btn:hover {
 
 /* ===== FORMS ===== */
 form {
-  background: white;
+  background: #ffffff;
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 label {
   font-weight: bold;
   display: block;
   margin-top: 15px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 input, select, textarea {
   width: 100%;
-  padding: 10px;
+  padding: 9px;
   margin-top: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===== FOOTER ===== */
 footer {
   background-color: var(--green);
-  color: white;
-  padding: 20px;
+  color: #ffffff;
+  padding: 18px 0;
   position: fixed;
   bottom: 0;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .footer-content {
@@ -160,14 +182,15 @@ footer {
 }
 
 .footer-section h4 {
-  margin-bottom: 5px;
-  font-size: 15px;
+  margin-bottom: 4px;
+  font-size: 14px;
 }
 
 .footer-links a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   margin-right: 8px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .footer-links a:hover {
