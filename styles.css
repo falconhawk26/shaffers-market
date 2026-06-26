@@ -1,0 +1,175 @@
+/* ===== GLOBAL RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== COLORS ===== */
+:root {
+  --green: #2e7d32;
+  --dark-green: #1b5e20;
+  --light-green: #a5d6a7;
+  --cream: #f7f5e6;
+  --gray: #444;
+}
+
+/* ===== BODY ===== */
+body {
+  background-color: var(--cream);
+  color: var(--gray);
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+
+/* ===== HEADER / NAV ===== */
+header {
+  background-color: var(--green);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  color: white;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+nav a:hover {
+  background-color: var(--dark-green);
+}
+
+/* ===== PAGE TITLES ===== */
+h2 {
+  text-align: center;
+  margin: 30px 0 10px;
+  color: var(--dark-green);
+  font-size: 26px;
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+/* ===== HERO IMAGE ===== */
+.hero {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.hero img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-left: 6px solid var(--green);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+/* ===== BUTTONS ===== */
+button, .btn {
+  background-color: var(--green);
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+button:hover, .btn:hover {
+  background-color: var(--dark-green);
+}
+
+/* ===== FORMS ===== */
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 15px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: var(--green);
+  color: white;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  margin: 5px 0;
+}
+
+.footer-section h4 {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
