@@ -1,252 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Order Online | Shaffer's Market</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --green: #2f7b3b;
-      --dark: #1f1f1f;
-      --light: #f7f5f0;
-      --accent: #c75b2b;
-      --border: #e0ddd4;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--light);
-      color: var(--dark);
-      line-height: 1.5;
-    }
-    header {
-      background: linear-gradient(135deg, var(--green), #3fae4f);
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-    }
-    .nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 1rem;
-      font-size: 0.9rem;
-    }
-    nav a:hover { text-decoration: underline; }
-
-    main {
-      max-width: 1100px;
-      margin: 1.75rem auto 2.5rem;
-      padding: 0 1.5rem;
-    }
-    h1 {
-      font-size: 1.9rem;
-      margin-bottom: 0.4rem;
-      color: var(--green);
-    }
-    .sub {
-      font-size: 0.95rem;
-      color: #555;
-      margin-bottom: 1.25rem;
-    }
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
-      gap: 1.5rem;
-      align-items: flex-start;
-    }
-    .panel {
-      background: #fff;
-      border-radius: 0.75rem;
-      padding: 1rem 1.1rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-      color: var(--green);
-    }
-    .category {
-      margin-bottom: 1rem;
-    }
-    .category h3 {
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
-      color: var(--dark);
-    }
-    .item-row {
-      display: grid;
-      grid-template-columns: 2.2fr 0.9fr 0.9fr auto;
-      gap: 0.4rem;
-      align-items: center;
-      font-size: 0.9rem;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid #f0eee7;
-    }
-    .item-row:last-child { border-bottom: none; }
-    .item-name { font-weight: 500; }
-    .item-note {
-      font-size: 0.78rem;
-      color: #777;
-    }
-    .price {
-      text-align: right;
-      white-space: nowrap;
-    }
-    .qty-input {
-      width: 3.2rem;
-      padding: 0.25rem 0.3rem;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      text-align: center;
-      font-size: 0.85rem;
-    }
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 0.35rem 0.8rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .btn-add {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-add:hover { opacity: 0.9; }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.4rem;
-    }
-    .cart-items {
-      max-height: 260px;
-      overflow-y: auto;
-      margin-bottom: 0.6rem;
-      border-top: 1px solid #f0eee7;
-      border-bottom: 1px solid #f0eee7;
-    }
-    .cart-row {
-      display: grid;
-      grid-template-columns: 1.8fr 0.8fr 0.9fr auto;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      padding: 0.35rem 0;
-      align-items: center;
-      border-bottom: 1px solid #f7f5f0;
-    }
-    .cart-row:last-child { border-bottom: none; }
-    .cart-qty {
-      text-align: center;
-    }
-    .cart-total-line {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      margin-top: 0.4rem;
-    }
-    .cart-total-line strong { font-weight: 600; }
-
-    .small {
-      font-size: 0.78rem;
-      color: #777;
-      margin-top: 0.3rem;
-    }
-
-    .field {
-      margin-bottom: 0.6rem;
-      font-size: 0.9rem;
-    }
-    .field label {
-      display: block;
-      margin-bottom: 0.15rem;
-      font-weight: 500;
-    }
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-      padding: 0.4rem 0.45rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-    .field textarea { min-height: 70px; resize: vertical; }
-
-    .btn-primary {
-      background: var(--green);
-      color: #fff;
-      border-radius: 999px;
-      padding: 0.5rem 1.1rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .status {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-    }
-    .status.ok { color: var(--green); }
-    .status.err { color: #b3261e; }
-
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-    }
-  </style>
+  <title>Order Online - Shaffer’s Market</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 <header>
-  <div class="nav">
-    <div class="logo">SHAFFER'S MARKET · AKRON, OH</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="hours.html">Hours</a>
-      <a href="visit.html">Visit</a>
-      <a href="order.html"><strong>Order online</strong></a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
+  <h1>Shaffer’s Market</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="departments.html">Departments</a>
+    <a href="specials.html">Weekly Specials</a>
+    <a href="order.html">Order Online</a>
+    <a href="visit.html">Visit Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 </header>
 
-<main>
-  <h1>Order online for in‑store pickup</h1>
-  <p class="sub">
-    Build your order, submit it to Shaffer’s Market, and the team will prepare it for pickup.
-    Prices and availability may vary; you’ll confirm final total at the store.
-  </p>
+<h2>Order Online</h2>
 
-  <div class="layout">
-    <!-- Products -->
-    <section class="panel">
-      <h2>Select items</h2>
+<div class="container">
+  <form>
 
-      <div class="category">
-        <h3>Butcher · Meats</h3>
-        <div class="item-row" data-sku="ribeye">
-          <div>
-            <div class="item-name">Ribeye steak</div>
-            <div class="item-note">$/lb — cut to order</div>
-          </div>
-          <div class="price" data-price="16.99">$16.99/lb</div>
+    <div class="card">
+      <h3>Customer Information</h3>
+
+      <label>Full Name</label>
+      <input type="text" required>
+
+      <label>Phone Number</label>
+      <input type="text" required>
+
+      <label>Email Address (optional)</label>
+      <input type="email">
+    </div>
+
+    <div class="card">
+      <h3>Order Details</h3>
+
+      <label>Order Type</label>
+      <select required>
+        <option>Pickup</option>
+        <option>Curbside Pickup</option>
+      </select>
+
+      <label>Preferred Pickup Time</label>
+      <select required>
+        <option>As soon as ready</option>
+        <option>10:00 AM – 12:00 PM</option>
+        <option>12:00 PM – 2:00 PM</option>
+        <option>2:00 PM – 4:00 PM</option>
+        <option>4:00 PM – 6:00 PM</option>
+      </select>
+
+      <label>Department</label>
+      <select required>
+        <option>Produce</option>
+        <option>Meat & Poultry</option>
+        <option>Deli</option>
+        <option>Bakery</option>
+        <option>Grocery</option>
+        <option>Frozen</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h3>Items to Order</h3>
+
+      <label>Item Name</label>
+      <input type="text" placeholder="Example: 2 lbs ground beef" required>
+
+      <label>Quantity / Weight</label>
+      <input type="text" placeholder="Example: 2 lbs, 3 packs, 1 dozen" required>
+
+      <label>Additional Items</label>
+      <textarea rows="5" placeholder="List any additional items here..."></textarea>
+    </div>
+
+    <div class="card">
+      <h3>Special Instructions</h3>
+      <textarea rows="5" placeholder="Cut thick, extra ripe, substitute if out of stock, etc."></textarea>
+    </div>
+
+    <div class="card">
+      <h3>Contact Preference</h3>
+
+      <label>How should we contact you if we have questions?</label>
+      <select>
+        <option>Phone Call</option>
+        <option>Text Message</option>
+        <option>Email</option>
+      </select>
+    </div>
+
+    <button type="submit">Submit Order</button>
+
+  </form>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Shaffer’s Market</h4>
+      <p>14944 North Cheshire St<br>Burton, OH 44021</p>
+    </div>
+    <div class="footer-section">
+      <h4>Hours</h4>
+      <p>Mon–Sat: 8:00 AM – 7:00 PM<br>Sunday: Closed</p>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Phone: (555) 555‑5555</p>
+    </div>
+    <div class="footer-section footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="specials.html">Specials</a>
+      <a href="departments.html">Departments</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
