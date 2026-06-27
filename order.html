@@ -3,6 +3,96 @@
 <head>
   <title>Order Online - Shaffer's Market</title>
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Floating Cart Button */
+    #cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #8b1e1e;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: transform .2s ease;
+    }
+    #cart-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Slide-up Cart Drawer */
+    #cart-drawer {
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-top: 4px solid #8b1e1e;
+      padding: 20px;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+      transition: bottom .35s ease;
+      z-index: 998;
+      max-height: 70%;
+      overflow-y: auto;
+    }
+
+    #cart-drawer.open {
+      bottom: 0;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .remove-btn {
+      background: #8b1e1e;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Receipt Modal */
+    #receipt-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #receipt-box {
+      background: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 6px;
+    }
+
+    #close-receipt {
+      background: #8b1e1e;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 
@@ -31,80 +121,165 @@
     Online ordering is not active yet. Please call the store to place orders.
   </p>
 
-  <form action="" method="POST" onsubmit="return false;">
-    <div class="card">
-      <h3>Customer Information</h3>
-      <label>Name</label>
-      <input type="text">
-      <label>Phone</label>
-      <input type="text">
-      <label>Email</label>
-      <input type="email">
-    </div>
+  <h2>Featured Items</h2>
+  <div class="card">
+    <p>🍎 Apples (lb) — $1.49</p>
+    <p>🥩 Ground Beef (lb) — $4.99</p>
+    <p>🥪 Turkey (lb) — $7.49</p>
+    <p>🍩 Donuts (6 pack) — $4.99</p>
+  </div>
 
-    <div class="card">
-      <h3>Pickup Time</h3>
-      <select>
-        <option>As soon as ready</option>
-        <option>10 AM – 12 PM</option>
-        <option>12 PM – 2 PM</option>
-        <option>2 PM – 4 PM</option>
-        <option>4 PM – 6 PM</option>
-      </select>
-    </div>
+  <h2>Add Items</h2>
+  <div id="items-container"></div>
+  <button type="button" onclick="addItemRow()">Add Item</button>
+</div>
 
-    <h2>Your Items</h2>
-    <div id="items-container"></div>
-    <button type="button" onclick="addItemRow()">Add Item</button>
+<!-- Floating Cart Button -->
+<div id="cart-button" onclick="toggleCart()">🛒 Cart — $0.00</div>
 
-    <div class="card">
-      <h3>Special Instructions</h3>
-      <textarea rows="5"></textarea>
-    </div>
+<!-- Slide-up Cart Drawer -->
+<div id="cart-drawer">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
 
-    <button type="submit">Submit Order</button>
-  </form>
+  <p><strong>Subtotal:</strong> <span id="subtotal">$0.00</span></p>
+  <p><strong>Tax (6.75%):</strong> <span id="tax">$0.00</span></p>
+  <p><strong>Total:</strong> <span id="total">$0.00</span></p>
+
+  <button onclick="openReceipt()">Print Receipt</button>
+</div>
+
+<!-- Receipt Modal -->
+<div id="receipt-modal">
+  <div id="receipt-box">
+    <h3>Receipt</h3>
+    <div id="receipt-content"></div>
+    <button id="close-receipt" onclick="closeReceipt()">Close</button>
+  </div>
 </div>
 
 <script>
+  const TAX_RATE = 0.0675;
+
   const menu = {
-    "Produce": ["Apples", "Bananas", "Lettuce"],
-    "Meat": ["Ground Beef", "Steaks"],
-    "Deli": ["Ham", "Swiss Cheese"]
+    "🍎 Produce": {
+      "Bananas (lb)": 0.79,
+      "Apples (lb)": 1.49,
+      "Lettuce": 1.29,
+      "Tomatoes (lb)": 1.99
+    },
+    "🥩 Meat": {
+      "Ground Beef (lb)": 4.99,
+      "Chicken Breast (lb)": 3.49,
+      "Pork Chops (lb)": 3.99,
+      "Steaks (lb)": 9.99
+    },
+    "🥪 Deli": {
+      "Ham (lb)": 6.99,
+      "Turkey (lb)": 7.49,
+      "Swiss Cheese (lb)": 5.99,
+      "Potato Salad (lb)": 3.49
+    },
+    "🍩 Bakery": {
+      "Donuts (6 pack)": 4.99,
+      "Bread Loaf": 2.49,
+      "Cookies (dozen)": 3.99
+    }
   };
 
-  function updateItems(sel) {
-    const cat = sel.value;
-    const itemSel = sel.parentElement.querySelector(".item-select");
-    itemSel.innerHTML = "";
-    if (!menu[cat]) return;
-    menu[cat].forEach(i => {
-      const o = document.createElement("option");
-      o.textContent = i;
-      itemSel.appendChild(o);
-    });
+  function toggleCart() {
+    document.getElementById("cart-drawer").classList.toggle("open");
   }
 
   function addItemRow() {
-    const c = document.getElementById("items-container");
-    const r = document.createElement("div");
-    r.className = "card";
-    r.innerHTML = `
+    const container = document.getElementById("items-container");
+    const row = document.createElement("div");
+    row.className = "card item-row";
+
+    row.innerHTML = `
       <label>Category</label>
       <select class="category-select" onchange="updateItems(this)">
         <option value="">Select</option>
-        <option>Produce</option>
-        <option>Meat</option>
-        <option>Deli</option>
+        ${Object.keys(menu).map(cat => `<option>${cat}</option>`).join("")}
       </select>
 
       <label>Item</label>
-      <select class="item-select"></select>
+      <select class="item-select" onchange="updateCart()"></select>
 
       <label>Quantity</label>
-      <input type="number" min="1">
+      <input type="number" class="qty-input" min="1" value="1" oninput="updateCart()">
     `;
-    c.appendChild(r);
+
+    container.appendChild(row);
+  }
+
+  function updateItems(sel) {
+    const category = sel.value;
+    const itemSel = sel.parentElement.querySelector(".item-select");
+
+    itemSel.innerHTML = "";
+
+    if (!menu[category]) return;
+
+    Object.keys(menu[category]).forEach(item => {
+      const opt = document.createElement("option");
+      opt.textContent = item;
+      itemSel.appendChild(opt);
+    });
+
+    updateCart();
+  }
+
+  function updateCart() {
+    let subtotal = 0;
+    const cart = document.getElementById("cart-items");
+    cart.innerHTML = "";
+
+    document.querySelectorAll(".item-row").forEach((row, index) => {
+      const category = row.querySelector(".category-select").value;
+      const item = row.querySelector(".item-select").value;
+      const qty = parseFloat(row.querySelector(".qty-input").value) || 0;
+
+      if (menu[category] && menu[category][item]) {
+        const price = menu[category][item];
+        const lineTotal = price * qty;
+        subtotal += lineTotal;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item} (${qty})</span>
+          <span>$${lineTotal.toFixed(2)}</span>
+          <button class="remove-btn" onclick="removeItem(${index})">X</button>
+        `;
+        cart.appendChild(div);
+      }
+    });
+
+    const tax = subtotal * TAX_RATE;
+    const total = subtotal + tax;
+
+    document.getElementById("subtotal").textContent = "$" + subtotal.toFixed(2);
+    document.getElementById("tax").textContent = "$" + tax.toFixed(2);
+    document.getElementById("total").textContent = "$" + total.toFixed(2);
+
+    document.getElementById("cart-button").textContent = `🛒 Cart — $${total.toFixed(2)}`;
+  }
+
+  function removeItem(index) {
+    const rows = document.querySelectorAll(".item-row");
+    rows[index].remove();
+    updateCart();
+  }
+
+  function openReceipt() {
+    const receipt = document.getElementById("receipt-content");
+    receipt.innerHTML = document.getElementById("cart-drawer").innerHTML;
+    document.getElementById("receipt-modal").style.display = "flex";
+  }
+
+  function closeReceipt() {
+    document.getElementById("receipt-modal").style.display = "none";
   }
 
   window.onload = addItemRow;
